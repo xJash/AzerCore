@@ -1,0 +1,42 @@
+[worldserver]
+
+#
+#   StarterGuild.Enable
+#       Description: Description: Enable or disable the module
+#       Default: 0
+#       Value:
+#           0 (true)
+#           1 (false)
+#
+
+StarterGuild.Enable = 1
+
+#
+#   StarterGuild.Announce
+#       Description: Enable or disable the announcement that you are using the module
+#       Default: 0
+#       Value:
+#           0 (true)
+#           1 (false)
+#
+
+StarterGuild.Announce = 1
+
+#
+#   StarterGuild.Horde
+#   StarterGuild.Alliance
+#       Description: ID of the guild, to which the player should be added
+#       Note: if AllowTwoSide.Interaction.Guild = 1, you can set the same number for both factions
+#
+
+StarterGuild.Horde = 1
+StarterGuild.Alliance = 1
+
+#
+#   StarterGuild.Level
+#       Description: Level when the player will be invited to a guild
+#       Default: 0 (Disabled)
+#       Value: Any level, maximum 80 (blizzlike) (ex. 10 | 20 | etc)
+#
+
+StarterGuild.Level = 0
