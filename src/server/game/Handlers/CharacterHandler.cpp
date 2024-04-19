@@ -1015,7 +1015,7 @@ void WorldSession::HandlePlayerLoginFromDB(LoginQueryHolder const& holder)
                 }
             };
 
-            SendFullReputation({ 942, 935, 936, 1011, 970, 967, 989, 932, 934, 1038, 1077, 1106, 1104, 1090, 1098, 1156, 1073, 1105, 1119, 1091 });
+            SendFullReputation({ 942, 935, 936, 1011, 970, 967, 989, 932, 934, 1038, 1077, 1106, 1104, 1090, 1031, 933, 1098, 1156, 1073, 1105, 1119, 1091 });
 
             switch (pCurrChar->GetFaction())
             {

@@ -41,4 +41,4 @@ AOELoot.MailEnable = 1
 #       Default:    30.0
 #
 
-AOELoot.Range = 60.0
+AOELoot.Range = 30.0

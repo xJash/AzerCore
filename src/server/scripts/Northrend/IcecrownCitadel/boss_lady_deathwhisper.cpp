@@ -39,7 +39,6 @@ enum ScriptTexts
     SAY_AGGRO                   = 7,
     SAY_PHASE_2                 = 8,
     EMOTE_PHASE_2               = 9,
-    SAY_DOMINATE_MIND           = 10,
     SAY_DARK_EMPOWERMENT        = 11,
     SAY_DARK_TRANSFORMATION     = 12,
     SAY_ANIMATE_DEAD            = 13,
@@ -58,7 +57,6 @@ enum Spells
     SPELL_SHADOW_CHANNELING           = 43897, // during intro
     SPELL_MANA_BARRIER                = 70842,
     SPELL_DEATH_AND_DECAY             = 71001,
-    SPELL_DOMINATE_MIND_25            = 71289,
     SPELL_SHADOW_BOLT                 = 71254,
     SPELL_DARK_MARTYRDOM_T            = 70897,
     SPELL_DARK_TRANSFORMATION_T       = 70895,
@@ -127,7 +125,6 @@ enum EventTypes
 
     EVENT_BERSERK,
     EVENT_SPELL_DEATH_AND_DECAY,
-    EVENT_SPELL_DOMINATE_MIND_25,
 
     // Phase 1:
     EVENT_SPELL_SHADOW_BOLT,
@@ -283,8 +280,6 @@ public:
             events.SetPhase(PHASE_ONE);
             events.ScheduleEvent(EVENT_BERSERK, 10min);
             events.ScheduleEvent(EVENT_SPELL_DEATH_AND_DECAY, 10s);
-            if (GetDifficulty() != RAID_DIFFICULTY_10MAN_NORMAL)
-                events.ScheduleEvent(EVENT_SPELL_DOMINATE_MIND_25, 30s);
             events.ScheduleEvent(EVENT_SPELL_SHADOW_BOLT, 2s, 0, PHASE_ONE);
             events.ScheduleEvent(EVENT_SUMMON_WAVE_P1, 5s, 0, PHASE_ONE);
             events.ScheduleEvent(EVENT_EMPOWER_CULTIST, 20s, 30s, 0, PHASE_ONE);
@@ -370,44 +365,6 @@ public:
                     if (Unit* target = SelectTarget(SelectTargetMethod::Random))
                         me->CastSpell(target, SPELL_DEATH_AND_DECAY, false);
                     events.Repeat(22s, 30s);
-                    break;
-                case EVENT_SPELL_DOMINATE_MIND_25:
-                    {
-                        Talk(SAY_DOMINATE_MIND);
-
-                        std::vector<Player*> validPlayers;
-                        Map::PlayerList const& pList = me->GetMap()->GetPlayers();
-                        for (Map::PlayerList::const_iterator itr = pList.begin(); itr != pList.end(); ++itr)
-                            if (Player* plr = itr->GetSource())
-                                if (plr->IsAlive() && !plr->IsGameMaster() && plr->GetExactDist2dSq(me) < (150.0f * 150.0f))
-                                    if (!me->GetVictim() || me->GetVictim()->GetGUID() != plr->GetGUID())
-                                    {
-                                        // shouldn't be casted on any victim of summoned mobs
-                                        bool valid = true;
-                                        for (ObjectGuid const& guid : summons)
-                                            if (Creature* c = ObjectAccessor::GetCreature(*me, guid))
-                                                if (c->IsAlive() && c->GetVictim() && c->GetVictim()->GetGUID() == plr->GetGUID())
-                                                {
-                                                    valid = false;
-                                                    break;
-                                                }
-                                        if (valid)
-                                            validPlayers.push_back(plr);
-                                    }
-
-                        std::vector<Player*>::iterator begin = validPlayers.begin(), end = validPlayers.end();
-
-                        std::random_device rd;
-                        std::shuffle(begin, end, std::default_random_engine{rd()});
-
-                        for (uint8 i = 0; i < RAID_MODE<uint8>(0, 1, 1, 3) && i < validPlayers.size(); i++)
-                        {
-                            Unit* target = validPlayers[i];
-                            me->CastSpell(target, SPELL_DOMINATE_MIND_25, true);
-                        }
-
-                        events.Repeat(40s, 45s);
-                    }
                     break;
                 case EVENT_SPELL_SHADOW_BOLT:
                     if (Unit* target = SelectTarget(SelectTargetMethod::Random))
@@ -643,15 +600,6 @@ public:
             {
                 me->CastSpell(cultist, cultist->GetEntry() == NPC_CULT_FANATIC ? SPELL_DARK_TRANSFORMATION_T : SPELL_DARK_EMPOWERMENT_T, true);
                 Talk(uint8(cultist->GetEntry() == NPC_CULT_FANATIC ? SAY_DARK_TRANSFORMATION : SAY_DARK_EMPOWERMENT));
-            }
-        }
-
-        void SpellHitTarget(Unit* target, SpellInfo const* spell) override
-        {
-            if (spell->Id == SPELL_DOMINATE_MIND_25)
-            {
-                const int32 val = 100;
-                target->CastCustomSpell(target, 73261, &val, nullptr, nullptr, true); // scale aura, +100% size
             }
         }
 

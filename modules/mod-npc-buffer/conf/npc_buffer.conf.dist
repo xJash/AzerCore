@@ -42,7 +42,7 @@ Buff.CureRes = 1
 #           0 (Disable)
 #
 
-Buff.ByLevel = 1
+Buff.ByLevel = 9
 
 #
 #   Buff.Spells

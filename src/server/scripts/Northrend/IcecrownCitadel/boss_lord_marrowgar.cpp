@@ -60,7 +60,6 @@ enum Spells
 enum Events
 {
     EVENT_ENABLE_BONE_SLICE = 1,
-    EVENT_SPELL_BONE_SPIKE_GRAVEYARD,
     EVENT_SPELL_COLDFLAME,
     EVENT_SPELL_COLDFLAME_BONE_STORM,
     EVENT_WARN_BONE_STORM,
@@ -115,7 +114,6 @@ public:
         me->SetReactState(REACT_AGGRESSIVE);
         _Reset();
         events.ScheduleEvent(EVENT_ENABLE_BONE_SLICE, 10s);
-        events.ScheduleEvent(EVENT_SPELL_BONE_SPIKE_GRAVEYARD, 10s, 15s);
         events.ScheduleEvent(EVENT_SPELL_COLDFLAME, 5s);
         events.ScheduleEvent(EVENT_WARN_BONE_STORM, 45s, 50s);
         events.ScheduleEvent(EVENT_ENRAGE, 10min);
@@ -171,14 +169,6 @@ public:
                 break;
             case EVENT_ENABLE_BONE_SLICE:
                 _boneSlice = true;
-                break;
-            case EVENT_SPELL_BONE_SPIKE_GRAVEYARD:
-                {
-                    bool a = me->HasAura(SPELL_BONE_STORM);
-                    if (IsHeroic() || !a)
-                        me->CastSpell(me, SPELL_BONE_SPIKE_GRAVEYARD, a);
-                    events.Repeat(15s, 20s);
-                }
                 break;
             case EVENT_SPELL_COLDFLAME:
                 if (!me->HasAura(SPELL_BONE_STORM))
@@ -239,9 +229,6 @@ public:
                 DoStartMovement(me->GetVictim());
                 events.CancelEvent(EVENT_BONE_STORM_MOVE);
                 events.ScheduleEvent(EVENT_ENABLE_BONE_SLICE, 10s);
-                if (!IsHeroic())
-                    events.RescheduleEvent(EVENT_SPELL_BONE_SPIKE_GRAVEYARD, 15s, 20s);
-                break;
             case EVENT_ENRAGE:
                 me->CastSpell(me, SPELL_BERSERK, true);
                 Talk(SAY_BERSERK);

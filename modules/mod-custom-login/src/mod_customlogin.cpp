@@ -1,59 +1,3 @@
-/*
-
-# Custom Login Modifications #
-
-### Description ###
-------------------------------------------------------------------------------------------------------------------
-- All options can be enabled or disabled in config
-- Player ([ Faction ] - Name - Logon/Logoff message) notification can be announced to the world
-- New characters can receive items, bags, and class-specific heirlooms on first login
-- New characters can receive class-specific skills on first login
-- New characters can receive specialized skills on first login
-- New characters can receive exalted rep with capital cities (Ambassador) on first login
-
-
-### Data ###
-------------------------------------------------------------------------------------------------------------------
-- Type: Player/Server
-- Script: CustomLogin
-- Config: Yes
-- SQL: No
-
-
-### Version ###
-------------------------------------------------------------------------------------------------------------------
-- v2018.12.19 - Add BOA specific config options
-- v2018.12.01 - Fix PlayerAnnounce when exiting game
-- v2017.08.25 - Clean up code, add rep gain, add config options
-- v2017.08.01 - Release
-
-
-### Credits ###
-------------------------------------------------------------------------------------------------------------------
-#### A module for AzerothCore by StygianTheBest ([stygianthebest.github.io](http://stygianthebest.github.io)) ####
-
-###### Additional Credits include:
-- [Blizzard Entertainment](http://blizzard.com)
-- [TrinityCore](https://github.com/TrinityCore/TrinityCore/blob/3.3.5/THANKS)
-- [SunwellCore](http://www.azerothcore.org/pages/sunwell.pl/)
-- [AzerothCore](https://github.com/AzerothCore/azerothcore-wotlk/graphs/contributors)
-- [AzerothCore Discord](https://discord.gg/gkt4y2x)
-- [EMUDevs](https://youtube.com/user/EmuDevs)
-- [AC-Web](http://ac-web.org/)
-- [ModCraft.io](http://modcraft.io/)
-- [OwnedCore](http://ownedcore.com/)
-- [OregonCore](https://wiki.oregon-core.net/)
-- [Wowhead.com](http://wowhead.com)
-- [AoWoW](https://wotlk.evowow.com/)
-
-
-### License ###
-------------------------------------------------------------------------------------------------------------------
-- This code and content is released under the [GNU AGPL v3](https://github.com/azerothcore/azerothcore-wotlk/blob/master/LICENSE-AGPL3).
-
-*/
-
-
 #include "Player.h"
 #include "Config.h"
 #include "Chat.h"
@@ -474,15 +418,15 @@ public:
             if (LoginSpecialAbility)
             {
                 // Learn Specialized Skills
-                player->learnSpell(1784);	// Stealth
-                player->learnSpell(921);	// Pick Pocket
-                player->learnSpell(1804);	// Lockpicking
-                player->learnSpell(11305);	// Sprint (3)
-                player->learnSpell(5384);	// Feign Death
-                player->learnSpell(475);	// Remove Curse
+                //player->learnSpell(1784);	// Stealth
+                //player->learnSpell(921);	// Pick Pocket
+                //player->learnSpell(1804);	// Lockpicking
+                //player->learnSpell(11305);	// Sprint (3)
+                //player->learnSpell(5384);	// Feign Death
+                //player->learnSpell(475);	// Remove Curse
 
                 // Add a few teleportation runes
-                player->AddItem(17031, 5);	// Rune of Teleportation
+                player->AddItem(17031, 20);	// Rune of Teleportation
 
                 // Learn Teleports
                 switch (player->GetTeamId())

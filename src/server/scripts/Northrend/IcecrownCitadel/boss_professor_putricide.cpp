@@ -646,7 +646,7 @@ public:
                             me->CastSpell(target, SPELL_MALLEABLE_GOO, true);
                         }
                     }
-                    events.ScheduleEvent(EVENT_MALLEABLE_GOO, 25s, 30s, EVENT_GROUP_ABILITIES);
+                    events.ScheduleEvent(EVENT_MALLEABLE_GOO, 50s, 60s, EVENT_GROUP_ABILITIES);
                     break;
                 case EVENT_CHOKING_GAS_BOMB:
                     Talk(EMOTE_CHOKING_GAS_BOMB);

@@ -2435,7 +2435,7 @@ public:
             Position dest = GetExplTargetDest()->GetPosition();
             targets.SetDst(dest);
             CustomSpellValues values;
-            int32 damage = si->Effects[0].CalcValue() + _energyLeft * _energyLeft * 8;
+            int32 damage = si->Effects[0].CalcValue() + _energyLeft * _energyLeft * 64;
             values.AddSpellMod(SPELLVALUE_BASE_POINT0, damage);
             values.AddSpellMod(SPELLVALUE_BASE_POINT1, damage);
             values.AddSpellMod(SPELLVALUE_BASE_POINT2, damage);

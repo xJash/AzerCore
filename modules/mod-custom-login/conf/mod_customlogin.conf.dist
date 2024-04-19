@@ -17,7 +17,7 @@
 Login.Enable = 1
 
 # Announce the module when the player logs in? (default: 1)
-Login.Announce = 1
+Login.Announce = 0
 
 # Inform when players enter and exit the game (default: 1)
 Login.PlayerAnnounce = 1
