@@ -232,8 +232,8 @@ public:
                 }
             }
         }
-        return true;
     }
+    
 
 private:
     Unit* _owner;
@@ -626,13 +626,34 @@ public:
                     me->GetMotionMaster()->MovePoint(POINT_LAND, SindragosaFlyInPos);
                     break;
                 case EVENT_LAND_GROUND:
-                    events.ScheduleEvent(EVENT_CLEAVE, 13s, 15s, EVENT_GROUP_LAND_PHASE);
-                    events.ScheduleEvent(EVENT_TAIL_SMASH, 19s, 23s, EVENT_GROUP_LAND_PHASE);
-                    events.ScheduleEvent(EVENT_FROST_BREATH, 7s, 10s, EVENT_GROUP_LAND_PHASE);
-                    events.ScheduleEvent(EVENT_UNCHAINED_MAGIC, 12s, 17s, EVENT_GROUP_LAND_PHASE);
-                    events.ScheduleEvent(EVENT_ICY_GRIP, 35s, 40s, EVENT_GROUP_LAND_PHASE);
-                    me->GetMotionMaster()->MoveLand(POINT_LAND_GROUND, SindragosaLandPos, 10.0f);
-                    break;
+                    // Removing Ice Tomb effects from all players
+                {
+                    Map* map = me->GetMap();
+                    if (map && map->IsDungeon())
+                    {
+                        Map::PlayerList const& PlayerList = map->GetPlayers();
+                        for (Map::PlayerList::const_iterator itr = PlayerList.begin(); itr != PlayerList.end(); ++itr)
+                        {
+                            if (Player* player = itr->GetSource())
+                            {
+                                player->RemoveAurasDueToSpell(SPELL_ICE_TOMB_TARGET);
+                                player->RemoveAurasDueToSpell(SPELL_ICE_TOMB_DUMMY);
+                                player->RemoveAurasDueToSpell(SPELL_ICE_TOMB_UNTARGETABLE);
+                                player->RemoveAurasDueToSpell(SPELL_ICE_TOMB_DAMAGE);
+                            }
+                        }
+                    }
+                }
+
+                // Continue with the rest of the scheduled events
+                events.ScheduleEvent(EVENT_CLEAVE, 13s, 15s, EVENT_GROUP_LAND_PHASE);
+                events.ScheduleEvent(EVENT_TAIL_SMASH, 19s, 23s, EVENT_GROUP_LAND_PHASE);
+                events.ScheduleEvent(EVENT_FROST_BREATH, 7s, 10s, EVENT_GROUP_LAND_PHASE);
+                events.ScheduleEvent(EVENT_UNCHAINED_MAGIC, 12s, 17s, EVENT_GROUP_LAND_PHASE);
+                events.ScheduleEvent(EVENT_ICY_GRIP, 35s, 40s, EVENT_GROUP_LAND_PHASE);
+                me->GetMotionMaster()->MoveLand(POINT_LAND_GROUND, SindragosaLandPos, 10.0f);
+                break;
+
                 case EVENT_THIRD_PHASE_CHECK:
                     if (!_isInAirPhase)
                     {

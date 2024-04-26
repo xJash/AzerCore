@@ -42,7 +42,7 @@
 
 namespace lfg
 {
-    LFGMgr::LFGMgr(): m_lfgProposalId(1), m_options(sWorld->getIntConfig(CONFIG_LFG_OPTIONSMASK)), m_Testing(false)
+    LFGMgr::LFGMgr(): m_lfgProposalId(1), m_options(sWorld->getIntConfig(CONFIG_LFG_OPTIONSMASK)), m_Testing(true)
     {
         for (uint8 team = 0; team < 2; ++team)
         {
@@ -1740,7 +1740,6 @@ namespace lfg
                     // if player is debugging, don't add dungeon cooldown
                     if (!m_Testing)
                     {
-                        player->AddAura(LFG_SPELL_DUNGEON_COOLDOWN, player);
                     }
                 }
 

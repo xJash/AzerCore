@@ -110,21 +110,14 @@ public:
             AddGossipItemFor(player, GOSSIP_ICON_TALK, "Anvil", GOSSIP_SENDER_MAIN, 4087, "Add an Anvil?", GuildHouseObject, false);
             AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "Guild Vault", GOSSIP_SENDER_MAIN, 187293, "Add Guild Vault?", GuildHouseObject, false);
             AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, "Barber Chair", GOSSIP_SENDER_MAIN, 191028, "Add a Barber Chair?", GuildHouseObject, false);
-
-            if (player->GetTeamId() == TEAM_ALLIANCE)
-            {
-                // ALLIANCE players get these options
-                AddGossipItemFor(player, GOSSIP_ICON_TAXI, "Portal: Ironforge", GOSSIP_SENDER_MAIN, 500003, "Add Ironforge Portal?", GuildHousePortal, false);
-                AddGossipItemFor(player, GOSSIP_ICON_TAXI, "Portal: Darnassus", GOSSIP_SENDER_MAIN, 500001, "Add Darnassus Portal?", GuildHousePortal, false);
-                AddGossipItemFor(player, GOSSIP_ICON_TAXI, "Portal: Exodar", GOSSIP_SENDER_MAIN, 500002, "Add Exodar Portal?", GuildHousePortal, false);
-            }
-            else
-            {
-                // HORDE players get these options
-                AddGossipItemFor(player, GOSSIP_ICON_TAXI, "Portal: Undercity", GOSSIP_SENDER_MAIN, 500007, "Add Undercity Portal?", GuildHousePortal, false);
-                AddGossipItemFor(player, GOSSIP_ICON_TAXI, "Portal: Thunderbluff", GOSSIP_SENDER_MAIN, 500006, "Add Thunderbuff Portal?", GuildHousePortal, false);
-                AddGossipItemFor(player, GOSSIP_ICON_TAXI, "Portal: Silvermoon", GOSSIP_SENDER_MAIN, 500005, "Add Silvermoon Portal?", GuildHousePortal, false);
-            }
+            AddGossipItemFor(player, GOSSIP_ICON_TAXI, "Portal: Ironforge", GOSSIP_SENDER_MAIN, 500003, "Add Ironforge Portal?", GuildHousePortal, false);
+            AddGossipItemFor(player, GOSSIP_ICON_TAXI, "Portal: Darnassus", GOSSIP_SENDER_MAIN, 500001, "Add Darnassus Portal?", GuildHousePortal, false);
+            AddGossipItemFor(player, GOSSIP_ICON_TAXI, "Portal: Exodar", GOSSIP_SENDER_MAIN, 500002, "Add Exodar Portal?", GuildHousePortal, false);
+            // HORDE players get these options
+			AddGossipItemFor(player, GOSSIP_ICON_TAXI, "Portal: Orgrimmar", GOSSIP_SENDER_MAIN, 500004, "Add Orgrimmar Portal?", GuildHousePortal, false);
+            AddGossipItemFor(player, GOSSIP_ICON_TAXI, "Portal: Undercity", GOSSIP_SENDER_MAIN, 500007, "Add Undercity Portal?", GuildHousePortal, false);
+            AddGossipItemFor(player, GOSSIP_ICON_TAXI, "Portal: Thunderbluff", GOSSIP_SENDER_MAIN, 500006, "Add Thunderbuff Portal?", GuildHousePortal, false);
+            AddGossipItemFor(player, GOSSIP_ICON_TAXI, "Portal: Silvermoon", GOSSIP_SENDER_MAIN, 500005, "Add Silvermoon Portal?", GuildHousePortal, false);
 
             // These two portals work for either Team
             AddGossipItemFor(player, GOSSIP_ICON_TAXI, "Portal: Shattrath", GOSSIP_SENDER_MAIN, 500008, "Add Shattrath Portal?", GuildHousePortal, false);
@@ -154,21 +147,13 @@ public:
             AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "Skinning Trainer", GOSSIP_SENDER_MAIN, 19180, "Spawn Skinning Trainer?", GuildHouseProf, false);
             AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "Mining Trainer", GOSSIP_SENDER_MAIN, 8128, "Spawn Mining Trainer?", GuildHouseProf, false);
             AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "Herbalism Trainer", GOSSIP_SENDER_MAIN, 908, "Spawn Herbalism Trainer?", GuildHouseProf, false);
-
-            if (player->GetTeamId() == TEAM_ALLIANCE)
-            {
-                // ALLIANCE players get these options
-                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "Enchanting Trainer", GOSSIP_SENDER_MAIN, 18773, "Spawn Enchanting Trainer?", GuildHouseProf, false);
-                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "Jewelcrafing Trainer", GOSSIP_SENDER_MAIN, 18774, "Spawn Jewelcrafting Trainer?", GuildHouseProf, false);
-                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "Inscription Trainer", GOSSIP_SENDER_MAIN, 30721, "Spawn Inscription Trainer?", GuildHouseProf, false);
-            }
-            else
-            {
-                // HORDE players get these options
-                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "Enchanting Trainer", GOSSIP_SENDER_MAIN, 18753, "Spawn Enchanting Trainer?", GuildHouseProf, false);
-                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "Jewelcrafing Trainer", GOSSIP_SENDER_MAIN, 18751, "Spawn Jewelcrafting Trainer?", GuildHouseProf, false);
-                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "Inscription Trainer", GOSSIP_SENDER_MAIN, 30722, "Spawn Inscription Trainer?", GuildHouseProf, false);
-            }
+            AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "Enchanting Trainer", GOSSIP_SENDER_MAIN, 18773, "Spawn Enchanting Trainer?", GuildHouseProf, false);
+            AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "Jewelcrafing Trainer", GOSSIP_SENDER_MAIN, 18774, "Spawn Jewelcrafting Trainer?", GuildHouseProf, false);
+            AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "Inscription Trainer", GOSSIP_SENDER_MAIN, 30721, "Spawn Inscription Trainer?", GuildHouseProf, false);
+            AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "Enchanting Trainer", GOSSIP_SENDER_MAIN, 18753, "Spawn Enchanting Trainer?", GuildHouseProf, false);
+            AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "Jewelcrafing Trainer", GOSSIP_SENDER_MAIN, 18751, "Spawn Jewelcrafting Trainer?", GuildHouseProf, false);
+            AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "Inscription Trainer", GOSSIP_SENDER_MAIN, 30722, "Spawn Inscription Trainer?", GuildHouseProf, false);
+            
 
             AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Go Back!", GOSSIP_SENDER_MAIN, 9);
             SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, creature->GetGUID());
@@ -261,6 +246,7 @@ public:
         case 500005: // Silvermoon Portal
         case 500006: // Thunder Bluff Portal
         case 500007: // Undercity Portal
+		case 500004: // Orgrimmar Portal
         case 500008: // Shattrath Portal
         case 500009: // Dalaran Portal
             cost = GuildHousePortal;

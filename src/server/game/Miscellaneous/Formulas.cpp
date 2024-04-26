@@ -57,8 +57,7 @@ uint32 Acore::XP::BaseGain(uint8 pl_level, uint8 mob_level, ContentLevels conten
         uint8 gray_level = GetGrayLevel(pl_level);
         if (mob_level > gray_level)
         {
-            uint8 ZD = GetZeroDifference(pl_level);
-            baseGain = (pl_level * 5 + nBaseExp) * (ZD + mob_level - pl_level) / ZD;
+            baseGain = 0;
         }
         else
             baseGain = 0;
@@ -98,24 +97,24 @@ uint32 Acore::XP::Gain(Player* player, Unit* unit, bool isBattleGround /*= false
         {
             switch (player->GetMapId())
             {
-                case MAP_BG_ALTERAC_VALLEY:
-                    xpMod *= sWorld->getRate(RATE_XP_BG_KILL_AV);
-                    break;
-                case MAP_BG_WARSONG_GULCH:
-                    xpMod *= sWorld->getRate(RATE_XP_BG_KILL_WSG);
-                    break;
-                case MAP_BG_ARATHI_BASIN:
-                    xpMod *= sWorld->getRate(RATE_XP_BG_KILL_AB);
-                    break;
-                case MAP_BG_EYE_OF_THE_STORM:
-                    xpMod *= sWorld->getRate(RATE_XP_BG_KILL_EOTS);
-                    break;
-                case MAP_BG_STRAND_OF_THE_ANCIENTS:
-                    xpMod *= sWorld->getRate(RATE_XP_BG_KILL_SOTA);
-                    break;
-                case MAP_BG_ISLE_OF_CONQUEST:
-                    xpMod *= sWorld->getRate(RATE_XP_BG_KILL_IC);
-                    break;
+            case MAP_BG_ALTERAC_VALLEY:
+                xpMod *= sWorld->getRate(RATE_XP_BG_KILL_AV);
+                break;
+            case MAP_BG_WARSONG_GULCH:
+                xpMod *= sWorld->getRate(RATE_XP_BG_KILL_WSG);
+                break;
+            case MAP_BG_ARATHI_BASIN:
+                xpMod *= sWorld->getRate(RATE_XP_BG_KILL_AB);
+                break;
+            case MAP_BG_EYE_OF_THE_STORM:
+                xpMod *= sWorld->getRate(RATE_XP_BG_KILL_EOTS);
+                break;
+            case MAP_BG_STRAND_OF_THE_ANCIENTS:
+                xpMod *= sWorld->getRate(RATE_XP_BG_KILL_SOTA);
+                break;
+            case MAP_BG_ISLE_OF_CONQUEST:
+                xpMod *= sWorld->getRate(RATE_XP_BG_KILL_IC);
+                break;
             }
         }
         else
@@ -132,6 +131,32 @@ uint32 Acore::XP::Gain(Player* player, Unit* unit, bool isBattleGround /*= false
         gain = uint32(gain * xpMod);
     }
 
-    //sScriptMgr->OnGainCalculation(gain, player, u); // pussywizard: optimization
+    // Send experience gained to player's chat
+    // if (player->GetGUID())
+    // {
+    //     for (uint8 i = EQUIPMENT_SLOT_START; i < EQUIPMENT_SLOT_END; ++i)
+    //     {
+    //         Item* item = player->GetItemByPos(INVENTORY_SLOT_BAG_0, i);
+    //         if (item)
+    //         {
+    //             std::ostringstream itemInfo;
+    //             itemInfo << "item: " << item->GetEntry();
+    //             player->GetSession()->SendAreaTriggerMessage(itemInfo.str().c_str());
+	// 
+    //             uint32 maxExp = (1000 * (item->GetTemplate()->Quality + 1) * item->GetTemplate()->ItemLevel);
+    //             uint32 guid = player->GetSession()->GetAccountId();
+    //             uint32 itemID = item->GetEntry();
+    //             uint32 currentEXP = gain;  // This should be defined somewhere, assuming it is before this code block
+	// 
+    //             // Prepare SQL statement with ON DUPLICATE KEY UPDATE
+    //             std::ostringstream sql;
+    //             sql << "INSERT INTO acore_world.attunements (guid, currentEXP, maxEXP, attuned, itemID) ";
+    //             sql << "VALUES (" << guid << ", " << currentEXP << ", " << maxExp << ", 0, " << itemID << ") ";
+    //             sql << "ON DUPLICATE KEY UPDATE currentEXP = currentEXP + VALUES(currentEXP)";
+	// 
+    //             WorldDatabase.Execute(sql.str());
+    //         }
+    //     }
+    // }
     return gain;
 }

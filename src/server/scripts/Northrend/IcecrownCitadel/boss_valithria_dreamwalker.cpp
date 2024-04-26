@@ -428,9 +428,19 @@ public:
 
         void SummonedCreatureDespawn(Creature* summon) override
         {
+            ScriptedAI::SummonedCreatureDespawn(summon);
             if (summon->GetEntry() == NPC_DREAM_PORTAL || summon->GetEntry() == NPC_NIGHTMARE_PORTAL)
                 if (summon->AI()->GetData(MISSED_PORTALS))
                     ++_missedPortals;
+            if (me->IsAlive())
+            {
+                // Heal Valithria by 4% of her total health per add
+                uint32 healAmount = CalculatePct(me->GetMaxHealth(), 4);
+                me->ModifyHealth(healAmount);
+
+                // Visual effect for healing, replace 5185 with the actual spell ID for a visual effect
+                me->CastSpell(me, 5185, true);
+            }
         }
 
         void UpdateAI(uint32 diff) override
@@ -651,6 +661,7 @@ public:
 
         void JustSummoned(Creature* summon) override
         {
+            ScriptedAI::JustSummoned(summon);
             summon->SetPhaseMask((summon->GetPhaseMask() & ~0x10), true); // must not be in dream phase
             if (summon->GetEntry() != NPC_SUPPRESSER)
                 if (Unit* target = SelectTargetFromPlayerList(200.0f))
@@ -801,17 +812,14 @@ public:
     }
 };
 
-class npc_valithria_portal : public CreatureScript
-{
+class npc_valithria_portal : public CreatureScript {
 public:
-    npc_valithria_portal() : CreatureScript("npc_valithria_portal") { }
+    npc_valithria_portal() : CreatureScript("npc_valithria_portal") {}
 
-    struct npc_valithria_portalAI : public NullCreatureAI
-    {
-        npc_valithria_portalAI(Creature* creature) : NullCreatureAI(creature), _used(false) {}
+    struct npc_valithria_portalAI : public NullCreatureAI {
+        npc_valithria_portalAI(Creature* creature, InstanceScript* instance) : NullCreatureAI(creature), _used(false), _instance(instance) {}
 
-        void OnSpellClick(Unit* /*clicker*/, bool& result) override
-        {
+        void OnSpellClick(Unit* clicker, bool& result) override {
             if (!result)
                 return;
 
@@ -819,20 +827,21 @@ public:
             me->DespawnOrUnsummon();
         }
 
-        uint32 GetData(uint32 type) const override
-        {
+        uint32 GetData(uint32 type) const override {
             return (type == MISSED_PORTALS && _used) ? 0 : 1;
         }
 
     private:
         bool _used;
+        InstanceScript* _instance;
     };
 
-    CreatureAI* GetAI(Creature* creature) const override
-    {
-        return GetIcecrownCitadelAI<npc_valithria_portalAI>(creature);
+    CreatureAI* GetAI(Creature* creature) const override {
+        return new npc_valithria_portalAI(creature, creature->GetInstanceScript());
     }
 };
+
+
 
 class npc_valithria_cloud : public CreatureScript
 {
