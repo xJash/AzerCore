@@ -1,0 +1,36 @@
+#
+# Copyright (C) 2016+ AzerothCore <www.azerothcore.org>, released under GNU AGPL v3 license: https://github.com/azerothcore/azerothcore-wotlk/blob/master/LICENSE-AGPL3
+#
+
+[worldserver]
+
+########################################
+# ReusablePotion configuration
+########################################
+#
+#    ReusablePotion.Enable
+#        Description: Enables potions to be re-usable in combat.
+#        Default:     0 - Disabled
+#                     1 - Enabled
+#
+
+ReusablePotion.Enable = 1
+
+#
+#    ReusablePotion.Verbose
+#        Description: Enables the verbose logging.
+#        Note: Keep this off on production unless debugging.
+#        Default:     0 - Disabled
+#                     1 - Enabled
+#
+
+ReusablePotion.Verbose = 0
+
+#
+#    ReusablePotion.PvPEnable
+#        Description: Allows potions to be re-usable in pvp combat.
+#        Default:     0 - Disabled
+#                     1 - Enabled
+#
+
+ReusablePotion.PvPEnable = 0
